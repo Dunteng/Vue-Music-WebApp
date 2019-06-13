@@ -13,7 +13,8 @@ module.exports = {
     // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
     'plugin:vue/essential', 
     // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-    'standard'
+    'standard',
+    'plugin:vue/recommended'
   ],
   // required to lint *.vue files
   plugins: [
@@ -26,6 +27,14 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'eol-last': 0,
-    'space-before-function-paren': 0
+    'space-before-function-paren': 0,
+    'indent': 'off',
+    'vue/script-indent': [
+      'error',
+      4,
+      {
+        'baseIndent': 1
+      }
+    ]
   }
 }
