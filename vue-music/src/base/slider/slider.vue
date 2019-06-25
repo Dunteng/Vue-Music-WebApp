@@ -34,7 +34,7 @@ export default {
     interval: {
       /* 轮播时间间隔 */
       type: Number,
-      default: 3000
+      default: 2000
     }
   },
   data() {
@@ -44,6 +44,7 @@ export default {
     };
   },
   mounted() {
+    //延迟20毫秒再初始化,以确保DOM在初始化之前渲染完毕
     setTimeout(() => {
       this._setSliderWidth();
       this._initDots();
@@ -71,7 +72,7 @@ export default {
   deactivated() {
     clearTimeout(this.timer)
   },
-  beforeDestroy() {
+  beforeDestroy() {/* 路由切换的时候会触发vue的destroy，那么最好时把slider的计算器清除了以释放内存 */
     clearTimeout(this.timer)
   },
   methods: {
@@ -108,11 +109,9 @@ export default {
       this.slider.on("scrollEnd", () => {
         let pageIndex = this.slider.getCurrentPage().pageX; /* getCurrentPage是better-scroll内置的函数 */
         if (this.loop) {  /* 记住如果是无缝轮播的话，会多出两个节点，所以pageIndex要自减1 */
-        //   pageIndex -= 1;   
+          // pageIndex -= 1;   
         }
         this.currentPageIndex = pageIndex;
-        console.log('pageIndex = this.slider.getCurrentPage().pageX  '+pageIndex);
-        console.log('currentPageIndex  '+this.currentPageIndex);
         if (this.autoPlay) {
           this._play();
         }
@@ -134,7 +133,10 @@ export default {
         // pageIndex += 1;
       }
       this.timer = setTimeout(() => {
+        console.log(pageIndex);
+        pageIndex=pageIndex==5?0:pageIndex
           this.slider.goToPage(pageIndex, 0, 400);  /* goToPage是better-scroll的内置方法，用于跳转到指定轮播图 */
+
       }, this.interval);
       
     }

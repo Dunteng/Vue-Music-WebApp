@@ -4,7 +4,9 @@
     <!-- <MHeader></MHeader>这样写也可以,但是不推荐，应尽量符合代码规范 -->
     <tab></tab>
     <transition>
+      <keep-alive>
       <router-view></router-view>
+      </keep-alive>
     </transition>
   </div>
 </template>

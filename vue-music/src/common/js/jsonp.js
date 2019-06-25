@@ -20,7 +20,7 @@ export default function jsonp2(url, data, option) {
 export function param(data) {
     let url = ''
     for (var k in data) {
-        let value = data[k] !== undefined ? data[k] : ''
+        let value = data[k] !== undefined ? data[k] : ''   /* 避免遇到空数据然后把undefined拼进去了 */
         url += '&' + k + '=' + encodeURIComponent(value)/* encodeURIComponent(value)进行字符转义，如encodeURIComponent('百度')转为"%E7%99%BE%E5%BA%A6" */
     }
     return url ? url.substring(1) : ''
